@@ -1,0 +1,156 @@
+Initial Setup
+If you're creating a new repository: 
+`git init # Initialize a new local repository`
+`git remote add origin <url> # Adds the remote repository` 
+`git fetch origin # Fetches information from the remote`
+
+Cloning a Repository
+When starting on a new computer: 
+`git clone https://github.com/user-name/repo-name # Clones the repository`
+
+Checking Branches
+View existing branches: 
+`git branch # Shows local branches` 
+`git branch -r # Shows remote branches`
+`git branch -a # Shows all branches, including remote ones`
+
+View commit history: 
+`git log # Shows the commit history` 
+`git log --oneline # Shows the commit history in a compact format`
+
+Creating and Switching Between Branches
+Switch to an existing branch: 
+`git checkout branch-name # Switch to an existing branch`
+
+Create a new branch and switch to it: 
+`git checkout -b new-branch-name # Create and switch to a new branch`
+
+If a remote branch doesn't exist locally, create and link it: 
+`git fetch origin # Update the list of remote branches` 
+`git checkout -b branch-name origin/branch-name # Create a local branch from a remote one`
+
+Handling Changes and Conflicts
+Stage changes: 
+`git add . # Stage all changes` 
+`git add <file> # Stage a specific file`
+
+Commit changes: 
+`git commit -m "Commit message" # Commit with a message`
+
+Pull (to update the local branch with remote changes): 
+`git pull origin branch-name # Update the local branch with the remote one`
+
+Handle conflicts during pull:
+
+Open the conflicting files, resolve them, and then: 
+`git add <conflicted-file> # Stage the resolved file` 
+`git commit -m "Resolved conflicts" # Complete the commit`
+Merging Branches
+Merge a branch into the current branch: 
+`git checkout branch-name # Switch to the branch you want to merge into`
+`git merge branch-to-merge # Merge the specified branch`
+Pushing and Managing the Remote
+Push changes to a remote branch: 
+`git push origin branch-name # Push changes to the remote branch`
+
+Set a local branch to track a remote branch (when creating a new branch): 
+`git push -u origin new-branch-name # Set tracking and push the branch`
+
+Viewing Differences
+View unstaged changes: 
+`git status # Show the status of the working directory`
+`git diff # Show changes not yet staged`
+`git diff --cached # Show staged changes`
+Reverting Changes
+Revert unstaged changes: 
+`git checkout -- <file> # Revert a file to the version from the last commit`
+
+Undo unpushed commits: git reset HEAD~1 # Undo the last commit while keeping the changes
+
+Important Notes on Using Multiple Computers
+When using multiple computers:
+Clone the repository on each computer with the git clone command.
+
+Check available branches with `git branch -a`.
+
+Switch to remote branches if needed: 
+`git checkout -b branch-name origin/branch-name # If the branch only exists remotely`
+
+Work and sync changes between computers using git push and git pull: 
+`git push origin branch-name # Push changes`
+`git pull origin branch-name # Pull changes`
+
+Git Workflow Explanation: Local and Remote Repositories
+Git is a distributed version control system, which means that everyone working on a project has a complete copy of the repository 
+(all files, commit history, branches, etc.). These copies exist both locally (on your computer) and remotely (for example, on GitHub).
+
+Local Repository
+The local repository is the one that exists on your computer. When you work on a project, make changes, save them, 
+and commit them, all these operations are handled by the local repository.
+
+Creating the local repository: When you create a local repository with git init, you have a completely independent and self-managed copy of the project.
+
+Committing changes: Every time you git commit, you're saving a "snapshot" of the project in your local repository. 
+These changes aren't visible to others until you push them.
+
+Local branching: You can create local branches to develop new features or work on different parts of the project in parallel. 
+Each branch is a "fork" of the commit history.
+
+Remote Repository
+A remote repository is a copy of the project that resides on a server, like GitHub or GitLab. 
+This repository is shared and accessible by multiple users, allowing collaboration between people working on different computers.
+
+Linking the local and remote repositories: To connect your local repository to a remote one, you use the command git remote add origin <url>. 
+This establishes a "link" between your local project and the version on GitHub, allowing you to sync changes between the two.
+
+Push and Pull: When you want to update the remote repository with your local changes, you use the git push command. 
+When you want to update your local repository with changes others have made in the remote, you use git pull. 
+This allows multiple people to work together on a project and keep all their changes in sync.
+
+Why Link Local and Remote Repositories?
+Linking the local repository to the remote one is essential for collaboration and project safety:
+
+Collaboration: If you're working with other developers or using multiple devices (e.g., a work computer and a home computer), 
+the remote repository serves as a central point to coordinate changes. The typical workflow is:
+You git pull to get the latest changes from the remote repository.
+You work on your local copy (add, modify, and commit changes).
+You git push to update the remote repository with your changes.
+Backup: The remote repository also acts as a backup of the project. Even if you lose data on your local computer, 
+all the changes saved to the remote repository remain accessible.
+Workflow Between Multiple Computers
+When using multiple computers (e.g., one at work and one at home), the approach is similar to collaborating with other people:
+
+Clone the repository: When you work on a new computer, you use git clone to get a complete copy of the remote repository. 
+This includes all the files, commit history, and branches.
+
+Syncing between computers: Work between the two computers is synced using git push and git pull. 
+If you make changes on one computer, you git push to send them to the remote repository. 
+Then, when you switch to the other computer, you git pull to get those changes.
+
+Branching and Merging
+Branches allow you to work on new features or bug fixes without interfering with the work on the main branch (main). 
+For example, you can create a develop branch where you develop new features. When you're satisfied, you merge (merge) 
+the develop branch into the main branch, integrating the changes.
+
+Local and remote branches: When you create a branch locally, it doesn't automatically exist on the remote repository. 
+You need to git push -u origin branch-name to create and link that branch to the remote.
+
+Merging: When a feature is complete, you can merge the branch where you've been working with the main branch, usually with git merge. 
+If there are conflicts (different changes to the same files), Git will ask you to resolve them manually.
+
+Handling Conflicts
+Sometimes, when working with other people or on multiple computers, you might encounter conflicts. 
+This happens when two people or devices modify the same part of a file differently. During a git pull or git merge, 
+Git will flag the conflict and ask you to resolve it:
+
+Resolving conflicts: You need to open the conflicting files, decide which changes to keep, and then git add and git commit to confirm the resolution.
+In Summary: The Complete Workflow
+Clone the repository on each computer (git clone).
+Create branches to work on new features (git checkout -b branch-name).
+Work on local changes, add files (git add), and commit them (git commit).
+Sync changes with the remote (git push and git pull).
+Resolve conflicts if there are incompatible changes between branches.
+Merge branches to integrate new features or fix bugs (git merge).
+Repeat the cycle each time you work on new features or fix issues.
+This is the general framework of how Git works and why local and remote repositories need to be connected.
+By linking the two, you can work safely and collaboratively, keeping the project always synchronized and accessible from any computer.
