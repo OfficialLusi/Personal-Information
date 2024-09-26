@@ -1,0 +1,189 @@
+
+1. **Configurazione iniziale**
+
+Se stai creando una nuova repository:
+`git init # Inizializza una nuova repository locale` 
+`git remote add origin <url> # Aggiunge il repository remoto`
+`git fetch origin # Recupera informazioni dal remoto`
+
+2. **Clonare una Repository**
+
+Quando inizi a lavorare su un nuovo computer:
+`git clone https://github.com/user-name/repo-name # Clona la repository`
+
+3. **Controllare i branch**
+
+- **Visualizzare i branch esistenti**:
+`git branch # Mostra i branch locali`
+`git branch -r # Mostra i branch remoti`
+`git branch -a # Mostra tutti i branch, inclusi quelli remoti`
+
+- **Visualizzare la storia dei commit**:
+`git log # Mostra la storia dei commit`
+`git log --oneline # Mostra la storia in formato compatto`
+
+4. **Creare e switchare tra i branch**
+
+- **Switchare su un branch esistente**:
+`git checkout nome-branch # Passa a un branch esistente`
+
+- **Creare un nuovo branch e switchare su di esso**:
+`git checkout -b nome-nuovo-branch # Crea e passa a un nuovo branch`
+
+- **Se un branch remoto non esiste in locale, crealo e collegalo**:
+`git fetch origin # Aggiorna la lista dei branch remoti`
+`git checkout -b nome-branch origin/nome-branch # Crea un branch locale da un remoto`
+
+5. **Gestire modifiche e conflitti**
+
+- **Aggiungere modifiche all'area di staging**:
+`git add . # Aggiungi tutte le modifiche`
+`git add <file> # Aggiungi un file specifico`
+
+- **Commit modifiche**:
+`git commit -m "Messaggio del commit" # Esegui un commit con un messaggio`
+
+- **Eseguire un pull (per aggiornare il branch locale con le modifiche remote)**:
+`git pull origin nome-branch # Aggiorna il branch locale con il remoto`
+
+- **Gestire i conflitti durante il pull**:
+	- Apri i file in conflitto, risolvili, e poi:
+	`git add <file-conflittato> # Aggiungi il file risolto`
+	`git commit -m "Risolti i conflitti" # Completa il commit`
+
+6. **Unire i branch**
+
+- **Unire un branch nel branch corrente**:
+`git checkout nome-branch # Passa al branch in cui vuoi unire`
+`git merge nome-branch-da-unire # Unisci il branch specificato`
+
+7. **Push e gestione del remoto**
+
+- **Pushare le modifiche a un branch remoto**:
+`git push origin nome-branch # Push delle modifiche sul branch remoto`
+
+- **Impostare un branch locale per tracciare un branch remoto** (quando crei un nuovo branch):
+`git push -u origin nome-nuovo-branch # Imposta il tracking e push il branch`
+
+8. **Visualizzare differenze**
+
+- **Visualizzare le modifiche non ancora commit**:
+`git status # Mostra lo stato della working directory`
+`git diff # Mostra le modifiche non ancora aggiunte`
+`git diff --cached # Mostra le modifiche già aggiunte (staged)`
+
+9. **Annullare modifiche**
+
+- **Annullare modifiche non ancora commit**:
+`git checkout -- <file> # Ripristina un file alla versione dell'ultimo commit`
+
+- **Annullare commit non pushati**:
+`git reset HEAD~1 # Annulla l'ultimo commit mantenendo le modifiche`
+
+Note Importanti su più Computer
+
+- Quando utilizzi più computer:
+    - **Clona la repository** su ogni computer con il comando `git clone`.
+        
+    - **Controlla i branch disponibili** con `git branch -a`.
+        
+    - **Switcha ai branch remoti** se necessario:
+	`git checkout -b nome-branch origin/nome-branch # Se il branch esiste solo in remoto`
+	- **Lavorare e sincronizzare** le modifiche tra i computer utilizzando `git push` e `git pull`:
+	`git push origin nome-branch # Push delle modifiche`
+	`git pull origin nome-branch # Pull delle modifiche`
+
+---
+Spiegazione del Flusso Git: Repository Locali e Remote
+
+Git è un sistema di controllo di versione distribuito, il che significa che ogni persona che lavora su un 
+progetto ha una **copia completa** della repository (tutti i file, la storia dei commit, i branch, ecc.). 
+Queste copie esistono sia **in locale** (sul tuo computer) che **in remoto** (ad esempio su GitHub). 
+
+1. **Repository Locale**
+
+La **repository locale** è quella che esiste sul tuo computer. Quando lavori su un progetto, 
+crei modifiche, le salvi, e fai commit. Tutte queste operazioni sono gestite dalla repository locale.
+
+- **Creare la repository locale**: Quando crei una repository locale con `git init`, hai 
+  una copia completamente indipendente e autogestita del progetto.
+    
+- **Commettere modifiche**: Ogni volta che fai un `git commit`, stai salvando uno "snapshot" 
+  del progetto nella tua repository locale. Questo non è visibile agli altri finché non fai un push.
+    
+- **Branching locale**: Puoi creare branch locali per sviluppare nuove funzionalità o lavorare 
+  su parti diverse del progetto in parallelo. Ogni branch è una "diramazione" della storia di commit.
+
+2. **Repository Remota**
+
+Una **repository remota** è una copia del progetto che risiede su un server, come GitHub o GitLab. 
+Questa repository è condivisa e accessibile da più utenti, il che permette una collaborazione 
+tra persone che lavorano su computer diversi.
+
+- **Collegare la repository locale e remota**: Per connettere la tua repository locale a una remota, 
+  usi il comando `git remote add origin <url>`. Questo stabilisce un "collegamento" tra il tuo progetto 
+  locale e la versione su GitHub, consentendoti di sincronizzare le modifiche tra le due copie.
+    
+- **Push e Pull**: Quando vuoi aggiornare la repository remota con le tue modifiche locali, 
+  usi il comando `git push`. Quando invece vuoi aggiornare la tua repository locale con le modifiche 
+  che altri hanno fatto nella repository remota, usi `git pull`. Questo permette a più persone di lavorare
+  insieme su un progetto e mantenere tutti i loro cambiamenti sincronizzati.
+
+3. **Perché collegare le repository locali e remote?**
+
+Collegare la repository locale con quella remota è essenziale per la collaborazione e la sicurezza del progetto:
+
+- **Collaborazione**: Se lavori con altri sviluppatori o utilizzi più dispositivi (es. PC a lavoro e PC a casa), la 
+  epository remota funge da punto centrale per coordinare le modifiche. Il flusso tipico è:
+    1. Fai `git pull` per prendere le ultime modifiche dalla repository remota.
+    2. Lavori sulla tua copia locale (aggiungi, modifichi e fai commit).
+    3. Fai `git push` per aggiornare la repository remota con le tue modifiche.
+    
+- **Backup**: La repository remota agisce anche come un backup del progetto. Anche se perdi i dati sul tuo computer 
+  locale, tutte le modifiche salvate sulla repository remota rimangono accessibili.
+
+4. **Il Flusso di Lavoro tra più Computer**
+
+Quando utilizzi più computer (ad esempio, uno a lavoro e uno a casa), l'approccio è simile a quello che usi per collaborare con altre persone:
+
+- **Clonare la repository**: Quando lavori su un nuovo computer, usi `git clone` per ottenere una copia 
+  completa della repository remota. Questo include tutti i file, la storia dei commit e i branch.
+    
+- **Sincronizzazione tra i computer**: Il lavoro tra i due computer viene sincronizzato tramite `git push` e `git pull`.
+  Se fai modifiche su un computer, esegui un `git push` per inviarle alla repository remota. 
+  Poi, quando torni all'altro computer, fai `git pull` per recuperare quelle modifiche.
+
+5. **Branching e Merging**
+
+I **branch** permettono di lavorare su nuove funzionalità o risolvere bug senza interferire con il lavoro sul branch principale (`main`). 
+Ad esempio, puoi creare un branch `develop` dove sviluppi nuove feature. 
+Quando sei soddisfatto, unisci (`merge`) il branch `develop` nel branch `main`, integrando le modifiche.
+
+- **Branch locale e branch remoto**: Quando crei un branch in locale, quel branch non esiste automaticamente sulla repository remota. 
+  Devi fare un `git push -u origin nome-branch` per creare e collegare quel branch anche nel remoto.
+    
+- **Merging**: Quando una funzionalità è completa, puoi unire il branch dove hai lavorato con il branch principale, solitamente con `git merge`. 
+  Se ci sono conflitti (modifiche diverse sugli stessi file), Git ti chiederà di risolverli manualmente.
+
+6. **Gestione dei Conflitti**
+
+A volte, quando lavori con altre persone o su più computer, potresti incontrare **conflitti**. 
+Questo accade quando due persone o dispositivi modificano la stessa parte di un file in modo diverso. 
+Durante un `git pull` o `git merge`, Git segnalerà il conflitto e ti chiederà di risolverlo:
+
+- **Risoluzione dei conflitti**: Devi aprire i file in conflitto, decidere quali modifiche mantenere 
+  e poi fare `git add` e `git commit` per confermare la risoluzione.
+
+**In Breve: Il Flusso di Lavoro Completo**
+
+1. **Clona** la repository su ogni computer (`git clone`).
+2. **Crea** branch per lavorare su nuove funzionalità (`git checkout -b nome-branch`).
+3. **Lavori** sulle modifiche locali, aggiungi file (`git add`) e fai commit (`git commit`).
+4. **Sincronizzi** le modifiche con il remoto (`git push` e `git pull`).
+5. **Risolvi conflitti** se ci sono differenze non compatibili tra i branch.
+6. **Unisci** branch per integrare nuove funzionalità o risolvere bug (`git merge`).
+7. **Ripeti** il ciclo ogni volta che lavori su nuove feature o risolvi problemi
+
+---
+Questo è il quadro generale del funzionamento di Git e del perché repository locali e remote devono essere collegate. 
+Collegando le due, puoi lavorare in modo sicuro e collaborativo, mantenendo il progetto sempre sincronizzato e accessibile da qualsiasi computer.
